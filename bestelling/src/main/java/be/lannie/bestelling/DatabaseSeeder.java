@@ -23,11 +23,10 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // 1. MAAK GEBRUIKERS AAN (ALS ZE NOG NIET BESTAAN)
         if (userRepo.count() == 0) {
             System.out.println("Geen users gevonden. Demo accounts aanmaken...");
             
-            // Admin met rol 'ADMIN' (Krijgt automatisch ROLE_ADMIN)
+            // Admin met rol 'ADMIN'
             userRepo.save(new AppUser("admin", encoder.encode("1234"), "ADMIN"));
             
             // User met rol 'USER'
@@ -36,14 +35,14 @@ public class DatabaseSeeder implements CommandLineRunner {
             System.out.println("USERS AANGEMAAKT: admin/1234 en user/1234");
         }
 
-        // 2. MAAK PRODUCTEN AAN
         if (productRepo.count() == 0) {
-            System.out.println("Geen producten gevonden. Menu laden...");
             productRepo.save(new Product("Pizza Margherita", 12.50, "Eten"));
             productRepo.save(new Product("Pizza Salami", 14.00, "Eten"));
             productRepo.save(new Product("Cola", 3.00, "Drinken"));
             productRepo.save(new Product("Fanta", 3.00, "Drinken"));
             productRepo.save(new Product("Tiramisu", 6.00, "Dessert"));
+
+            System.out.println("PRODUCTEN AANGEMAAKT");
         }
     }
 }

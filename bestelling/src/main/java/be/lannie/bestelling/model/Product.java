@@ -14,7 +14,6 @@ public class Product {
     private double prijs;
     private String categorie;
 
-    // Lege constructor nodig voor JPA
     public Product() {}
 
     public Product(String naam, double prijs, String categorie) {
@@ -23,7 +22,6 @@ public class Product {
         this.categorie = categorie;
     }
 
-    // Getters en Setters
     public Long getId() { return id; }
     public String getNaam() { return naam; }
     public double getPrijs() { return prijs; }
