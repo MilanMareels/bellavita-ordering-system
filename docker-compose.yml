@@ -1,0 +1,23 @@
+services:
+  # --- BACKEND ---
+  backend:
+    container_name: kassa-backend
+    build: ./bestelling
+    # Port forwarding (Optioneel, alleen voor testen)
+    ports:
+      - "8080:8080"
+    volumes:
+      # Sla de database op in een mapje op jouw PC
+      - ./kassa-data:/data
+    restart: always
+
+  # --- FRONTEND ---
+  frontend:
+    container_name: kassa-frontend
+    build: ./bestelling-frontend
+    # Port forwarding: Jouw PC poort 3000 -> Container poort 80
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
