@@ -14,7 +14,7 @@ services:
   # --- FRONTEND ---
   frontend:
     container_name: kassa-frontend
-    build: ./bestelling-frontend
+    build: ./pos-solution-frontend
     # Port forwarding: Jouw PC poort 3000 -> Container poort 80
     ports:
       - "3000:80"
