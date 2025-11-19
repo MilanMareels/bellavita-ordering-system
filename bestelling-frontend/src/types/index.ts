@@ -17,7 +17,7 @@ export interface CartItem extends Product {
 export interface UserProfile {
   username: string;
   role: string;
-  password: string; // ← toevoegen!
+  password: string;
 }
 
 export interface LoginScreenProps {

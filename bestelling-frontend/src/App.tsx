@@ -10,17 +10,11 @@ import AdminPanel from "./components/admin/AdminPanel";
 import type { UserProfile, Product, CartItem } from "./types";
 
 const App = () => {
-  /** ----------------------------------------------------
-   * USER STATE (incl. wachtwoord voor Basic Auth)
-   * ---------------------------------------------------- */
   const [user, setUser] = useState<UserProfile | null>(() => {
     const saved = localStorage.getItem("kassa_user");
     return saved ? JSON.parse(saved) : null;
   });
 
-  /** ----------------------------------------------------
-   * DATA STATE
-   * ---------------------------------------------------- */
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("Alles");
@@ -28,9 +22,6 @@ const App = () => {
   const [activeTab, setActiveTab] = useState<string>("kassa");
   const [loginError, setLoginError] = useState<string>("");
 
-  /** ----------------------------------------------------
-   * AUTH FETCH HELPER (Basic Auth)
-   * ---------------------------------------------------- */
   const authFetch = async (url: string, options: RequestInit = {}) => {
     if (!user?.password) throw new Error("Missing user credentials");
 
@@ -45,9 +36,6 @@ const App = () => {
     return fetch(url, { ...options, headers });
   };
 
-  /** ----------------------------------------------------
-   * LOAD PRODUCTS NA LOGIN
-   * ---------------------------------------------------- */
   useEffect(() => {
     if (!user) return;
 
@@ -62,9 +50,6 @@ const App = () => {
       .catch((err) => console.error(err));
   }, [user]);
 
-  /** ----------------------------------------------------
-   * LOGIN
-   * ---------------------------------------------------- */
   const handleLogin = async (username: string, password: string) => {
     try {
       const base64 = btoa(`${username}:${password}`);
@@ -94,9 +79,6 @@ const App = () => {
     }
   };
 
-  /** ----------------------------------------------------
-   * LOGOUT
-   * ---------------------------------------------------- */
   const handleLogout = (): void => {
     setUser(null);
     localStorage.removeItem("kassa_user");
