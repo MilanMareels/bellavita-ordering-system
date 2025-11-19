@@ -1,21 +1,18 @@
+version: "3.9"
+
 services:
-  # --- BACKEND ---
   backend:
-    container_name: kassa-backend
-    build: ./bestelling
-    # Port forwarding (Optioneel, alleen voor testen)
+    container_name: pos_solution_backend
+    build: ./pos_solution_backend
     ports:
       - "8080:8080"
     volumes:
-      # Sla de database op in een mapje op jouw PC
-      - ./kassa-data:/data
+      - ./pos_solution_data:/data
     restart: always
 
-  # --- FRONTEND ---
   frontend:
-    container_name: kassa-frontend
-    build: ./pos-solution-frontend
-    # Port forwarding: Jouw PC poort 3000 -> Container poort 80
+    container_name: pos_solution_frontend
+    build: ./pos_solution_frontend
     ports:
       - "3000:80"
     depends_on:
