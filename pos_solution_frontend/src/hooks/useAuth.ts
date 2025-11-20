@@ -1,9 +1,11 @@
 import { useState } from "react";
 import type { UserProfile } from "../types";
 
+const BASE_URL = import.meta.env.VITE_API_URL || "/api";
+
 export const useAuth = () => {
   const [user, setUser] = useState<UserProfile | null>(() => {
-    const saved = localStorage.getItem("kassa_user");
+    const saved = localStorage.getItem("pos_user");
     return saved ? JSON.parse(saved) : null;
   });
 
@@ -13,7 +15,7 @@ export const useAuth = () => {
     try {
       const base64 = btoa(`${username}:${password}`);
 
-      const res = await fetch("/api/auth/me", {
+      const res = await fetch(`${BASE_URL}/auth/me`, {
         headers: { Authorization: "Basic " + base64 },
       });
 
@@ -31,7 +33,7 @@ export const useAuth = () => {
       };
 
       setUser(loggedInUser);
-      localStorage.setItem("kassa_user", JSON.stringify(loggedInUser));
+      localStorage.setItem("pos_user", JSON.stringify(loggedInUser));
       setLoginError("");
 
       return true;
@@ -43,7 +45,7 @@ export const useAuth = () => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("kassa_user");
+    localStorage.removeItem("pos_user");
   };
 
   const authFetch = async (url: string, options: RequestInit = {}) => {
