@@ -4,3 +4,7 @@ docker compose --project-name pos-solution down
 
 npm run build
 npm run electron:build
+
+dev = VITE_API_URL=/api
+
+local = VITE_API_URL=http://localhost:8080/api
