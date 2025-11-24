@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { UserProfile } from "../types";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "/api";
+//const BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
 export const useAuth = () => {
   const [user, setUser] = useState<UserProfile | null>(() => {
@@ -15,7 +15,7 @@ export const useAuth = () => {
     try {
       const base64 = btoa(`${username}:${password}`);
 
-      const res = await fetch(`${BASE_URL}/auth/me`, {
+      const res = await fetch(`api/auth/me`, {
         headers: { Authorization: "Basic " + base64 },
       });
 
