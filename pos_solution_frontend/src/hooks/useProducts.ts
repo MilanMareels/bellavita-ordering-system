@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Product } from "../types";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "/api";
+//const BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
 export const useProducts = (authFetch: any, user: any) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -11,14 +11,14 @@ export const useProducts = (authFetch: any, user: any) => {
   useEffect(() => {
     if (!user) return;
 
-    authFetch(`${BASE_URL}/products`)
+    authFetch(`api/products`)
       .then((res: Response) => res.json())
       .then((data: Product[]) => setProducts(data))
       .catch(console.error);
   }, [user]);
 
   const addProduct = (newProduct: Omit<Product, "id">) => {
-    authFetch(`${BASE_URL}/products`, {
+    authFetch(`api/products`, {
       method: "POST",
       body: JSON.stringify(newProduct),
     })
@@ -27,7 +27,7 @@ export const useProducts = (authFetch: any, user: any) => {
   };
 
   const deleteProduct = (id: number) => {
-    return authFetch(`${BASE_URL}/products/${id}`, { method: "DELETE" }).then(() => setProducts((prev) => prev.filter((p) => p.id !== id)));
+    return authFetch(`api/products/${id}`, { method: "DELETE" }).then(() => setProducts((prev) => prev.filter((p) => p.id !== id)));
   };
 
   const categories = ["Alles", ...new Set(products.map((p) => p.categorie))];
